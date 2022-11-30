@@ -80,6 +80,11 @@ public:
 			ptr = ptr->next;
 			return *this;
 		}
+		iterator operator++(int) {
+			iterator tmp(*this);
+			ptr = ptr->next;
+			return tmp;
+		}
 		iterator operator+(size_t value) {
 			iterator tmp(*this);
 			for (size_t i = 0; i < value; i++) {
@@ -99,7 +104,7 @@ public:
 		return count;
 	}
 
-	iterator begin() const {
+	iterator begin(){
 		return iterator(first);
 	}
 
@@ -151,6 +156,7 @@ public:
 	}
 
 	list(list<T>&& l) {
+		first = nullptr;
 		std::swap(first, l.first);
 	}
 
@@ -187,18 +193,19 @@ public:
 		std::swap(first, l.first);
 	}
 
-	void insert_after(const iterator& previous_it, T value) {
+	void insert_after(iterator previous_it, T value) {
 		if (empty()) throw std::exception("list is empty");
 
 		node* tmp = new node(value, previous_it.ptr->next);
-		previous_it->next = tmp;
+		previous_it.ptr->next = tmp;
 	}
 
-	void erase_after(const iterator& previous_it) {
+	void erase_after(iterator previous_it) {
 		if (empty()) throw std::exception("list is empty");
+		else if (!previous_it.ptr->next) throw std::exception("next element are not exist");
 
 		node* tmp = previous_it.ptr->next;
-		previous_it.ptr = previous_it.ptr->next->next;
+		previous_it.ptr->next = previous_it.ptr->next->next;
 		delete tmp;
 	}
 

@@ -123,7 +123,7 @@ public:
 	}
 
 	bool empty() {
-		return count() == 0;
+		return !first;
 	}
 
 	list() = default;

@@ -193,20 +193,22 @@ public:
 		std::swap(first, l.first);
 	}
 
-	void insert_after(iterator previous_it, T value) {
+	iterator insert_after(iterator previous_it, T value) {
 		if (empty()) throw std::exception("list is empty");
 
 		node* tmp = new node(value, previous_it.ptr->next);
 		previous_it.ptr->next = tmp;
+		return iterator(previous_it.ptr->next);
 	}
 
-	void erase_after(iterator previous_it) {
+	iterator erase_after(iterator previous_it) {
 		if (empty()) throw std::exception("list is empty");
 		else if (!previous_it.ptr->next) throw std::exception("next element are not exist");
 
 		node* tmp = previous_it.ptr->next;
 		previous_it.ptr->next = previous_it.ptr->next->next;
 		delete tmp;
+		return iterator(previous_it.ptr->next);
 	}
 
 	void push_front(const T& value) {

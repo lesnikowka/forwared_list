@@ -16,7 +16,7 @@ class list {
 
 	size_t node_distance(node* lnode, node* rnode) {
 		node* tmp = lnode;
-		size_t distance = 0;//
+		size_t distance = 0;///
 		while (tmp != rnode) {
 			distance++;
 			tmp = tmp->next;

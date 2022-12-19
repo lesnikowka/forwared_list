@@ -100,10 +100,6 @@ public:
 		}
 	};
 
-	size_t size() const {
-		return count;
-	}
-
 	iterator begin(){
 		return iterator(first);
 	}
@@ -112,7 +108,7 @@ public:
 		return iterator(nullptr);
 	}
 
-	size_t count() {
+	size_t size() {
 		node* tmp = first;
 		size_t count = 0;
 		while (tmp) {
@@ -183,10 +179,12 @@ public:
 
 	const list<T>& operator=(list<T>&& l) {
 		std::swap(first, l.first);
+		return *this;
 	}
 
 	iterator insert_after(iterator previous_it, T value) {
 		if (empty()) throw std::exception("list is empty");
+		if (!previous_it.ptr) throw std::exception("nullptr was passed into function");
 
 		node* tmp = new node(value, previous_it.ptr->next);
 		previous_it.ptr->next = tmp;
@@ -195,6 +193,7 @@ public:
 
 	iterator erase_after(iterator previous_it) {
 		if (empty()) throw std::exception("list is empty");
+		else if (!previous_it.ptr) throw std::exception("nullptr was passed into function");
 		else if (!previous_it.ptr->next) throw std::exception("next element are not exist");
 
 		node* tmp = previous_it.ptr->next;

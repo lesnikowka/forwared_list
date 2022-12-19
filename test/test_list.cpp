@@ -278,7 +278,9 @@ TEST_F(list_fixture, can_move_list_operator) {
 	EXPECT_TRUE(flag);
 }
 
-//TEST_F(list_fixture)
+TEST_F(list_fixture, no_throw_if_sort_empty_list) {
+	ASSERT_NO_THROW(l.sort());
+}
 
 //TEST_F(list_fixture)
 

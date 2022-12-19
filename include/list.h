@@ -152,7 +152,6 @@ public:
 	}
 
 	list(list<T>&& l) {
-		first = nullptr;
 		std::swap(first, l.first);
 	}
 
@@ -183,8 +182,8 @@ public:
 	}
 
 	iterator insert_after(iterator previous_it, T value) {
-		if (empty()) throw std::exception("list is empty");
-		if (!previous_it.ptr) throw std::exception("nullptr was passed into function");
+		if (empty()) throw "list is empty";
+		if (!previous_it.ptr) throw "nullptr was passed into function";
 
 		node* tmp = new node(value, previous_it.ptr->next);
 		previous_it.ptr->next = tmp;
@@ -192,9 +191,9 @@ public:
 	}
 
 	iterator erase_after(iterator previous_it) {
-		if (empty()) throw std::exception("list is empty");
-		else if (!previous_it.ptr) throw std::exception("nullptr was passed into function");
-		else if (!previous_it.ptr->next) throw std::exception("next element are not exist");
+		if (empty()) throw "list is empty";
+		else if (!previous_it.ptr) throw "nullptr was passed into function";
+		else if (!previous_it.ptr->next) throw "next element are not exist";
 
 		node* tmp = previous_it.ptr->next;
 		previous_it.ptr->next = previous_it.ptr->next->next;
@@ -208,7 +207,7 @@ public:
 	}
 
 	void pop_front() {
-		if (empty()) throw std::exception("list is empty");
+		if (empty()) throw "list is empty";
 
 		node* tmp = first->next;
 		delete first;
@@ -216,7 +215,7 @@ public:
 	}
 
 	T& front() {
-		if (empty()) throw std::exception("list if empty");
+		if (empty()) throw "list if empty";
 
 		return first->elem;
 	}
@@ -232,11 +231,6 @@ public:
 			}
 			first = nullptr;
 		}
-	}
-
-	void print() {
-		for (auto i : *this) std::cout << i << " ";
-		std::cout << std::endl;
 	}
 
 	void sort() {
